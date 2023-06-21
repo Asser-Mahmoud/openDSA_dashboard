@@ -22,6 +22,7 @@ export interface CommonOptions {
     currencySymbol?: string;
     percentSymbol?: string;
     minusSymbol?: string;
+    isCustomFormat?: boolean;
 }
 /**
  * Interface for grouping process
@@ -117,4 +118,10 @@ export declare class NumberFormat {
      * @returns {string} ?
      */
     private static processMinimumIntegers;
+    /**
+     * Returns custom format for pivot table
+     *
+     * @param {number} value ?
+     */
+    private static customPivotFormat;
 }

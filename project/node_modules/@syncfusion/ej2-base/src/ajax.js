@@ -86,6 +86,7 @@ var Ajax = /** @class */ (function () {
             if (!isNullOrUndefined(_this.onUploadProgress)) {
                 _this.httpRequest.upload.onprogress = _this.onUploadProgress;
             }
+            // eslint-disable-next-line
             _this.httpRequest.open(_this.type, _this.url, _this.mode);
             // Set default headers
             if (!isNullOrUndefined(_this.data) && _this.contentType !== null) {

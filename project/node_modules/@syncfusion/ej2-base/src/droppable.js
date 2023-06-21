@@ -52,7 +52,7 @@ var Droppable = /** @class */ (function (_super) {
         this.wireEvents();
     };
     Droppable.prototype.wireEvents = function () {
-        EventHandler.add(this.element, Browser.touchEndEvent, this.intDrop, this);
+        EventHandler.add(this.element, Browser.isSafari() ? 'touchend' : Browser.touchEndEvent, this.intDrop, this);
     };
     // triggers when property changed
     // eslint-disable-next-line
@@ -114,7 +114,7 @@ var Droppable = /** @class */ (function (_super) {
         return area;
     };
     Droppable.prototype.destroy = function () {
-        EventHandler.remove(this.element, Browser.touchEndEvent, this.intDrop);
+        EventHandler.remove(this.element, Browser.isSafari() ? 'touchend' : Browser.touchEndEvent, this.intDrop);
         _super.prototype.destroy.call(this);
     };
     __decorate([

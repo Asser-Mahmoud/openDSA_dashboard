@@ -25,8 +25,8 @@ def estimate_item_params(data: InputData):
     if data.ability:
         ability = data.ability
     else:
-        ability = matrix_data.sum(axis=1)
-    ability = np.interp(ability, (ability.min(), ability.max()), (-50, 50))
+        ability = matrix_data.sum(axis=0)
+    ability = np.interp(ability, (ability.min(), ability.max()), (-2, 2))
     estimates = twopl_mml(matrix_data)
     discrimination = estimates['Discrimination'].tolist()
     difficulty = estimates['Difficulty'].tolist()

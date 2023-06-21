@@ -3,9 +3,10 @@ import axios from 'axios';
 import { ColumnSeries,ChartComponent, SeriesCollectionDirective,Tooltip, DataLabel, SeriesDirective, Category, Legend, Inject, LineSeries ,Zoom, ScrollBar } from '@syncfusion/ej2-react-charts';
 import { ScrollingCarousel } from '@trendyol-js/react-carousel';
 import { FiBook } from 'react-icons/fi';
-import Carousel from 'react-bootstrap/Carousel';
 import { Header ,IRT } from '../components';
 import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
   const Home = () => {
     const [data, setData] = useState([]);
@@ -20,7 +21,7 @@ import Slider from 'react-slick';
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.post('http://localhost:4000/api/student_book_data');
+          const response = await axios.get('http://localhost:4000/api/student_book_data');
           setData(response.data);
         } catch (error) {
           console.error(error);
@@ -42,13 +43,14 @@ import Slider from 'react-slick';
       labelFormat: 'y',
       intervalType: 'Years',
       edgeLabelPlacement: 'Shift' };
-  const primaryyAxis = { minimum: 0, maximum: 1500, interval: 300 };
+  const primaryyAxis = { minimum: 0, maximum: 700, interval: 100 };
   const load = (args) => {
       args.chart.zoomModule.isZoomed = true;
   };
   const [book, setBook] = useState('');
   
   const filteredData = data.filter((data) => data.BOOK === book);
+  console.log(filteredData);
 
       return (
     <div className='m-2 md:m-10 mt-24 p-2 md:p-10 bg-[#F6F6F6] rounded-3xl'>

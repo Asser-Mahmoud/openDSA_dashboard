@@ -2792,7 +2792,290 @@ export const ordersData = [
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/pop-womens-garmin-watches-1641919013.jpg?crop=0.502xw:1.00xh;0.250xw,0&resize=640:*',
   },
 ];
-
+export const studentData = [
+  {
+      "id": "1",
+      "name": "Marco",
+      "timespent": "10m",
+      "incorrect": 20,
+      "hints": 2
+  },
+  {
+      "id": "2",
+      "name": "Sophie",
+      "timespent": "12m",
+      "incorrect": 8,
+      "hints": 1
+  },
+  {
+      "id": "3",
+      "name": "Michael",
+      "timespent": "20m",
+      "incorrect": 15,
+      "hints": 3
+  },
+  {
+      "id": "4",
+      "name": "Emily",
+      "timespent": "8m",
+      "incorrect": 5,
+      "hints": 0
+  },
+  {
+      "id": "5",
+      "name": "Jacob",
+      "timespent": "15m",
+      "incorrect": 10,
+      "hints": 2
+  },
+  {
+      "id": "6",
+      "name": "Ava",
+      "timespent": "5m",
+      "incorrect": 3,
+      "hints": 0
+  },
+  {
+      "id": "7",
+      "name": "Liam",
+      "timespent": "18m",
+      "incorrect": 12,
+      "hints": 1
+  },
+  {
+      "id": "8",
+      "name": "Olivia",
+      "timespent": "6m",
+      "incorrect": 4,
+      "hints": 0
+  },
+  {
+      "id": "9",
+      "name": "Ethan",
+      "timespent": "14m",
+      "incorrect": 9,
+      "hints": 2
+  },
+  {
+      "id": "10",
+      "name": "Isabella",
+      "timespent": "4m",
+      "incorrect": 2,
+      "hints": 0
+  },
+  {
+      "id": "11",
+      "name": "Noah",
+      "timespent": "16m",
+      "incorrect": 11,
+      "hints": 3
+  },
+  {
+      "id": "12",
+      "name": "Emma",
+      "timespent": "7m",
+      "incorrect": 6,
+      "hints": 0
+  },
+  {
+      "id": "13",
+      "name": "William",
+      "timespent": "13m",
+      "incorrect": 7,
+      "hints": 1
+  },
+  {
+      "id": "14",
+      "name": "Mia",
+      "timespent": "3m",
+      "incorrect": 1,
+      "hints": 0
+  },
+  {
+      "id": "15",
+      "name": "James",
+      "timespent": "19m",
+      "incorrect": 13,
+      "hints": 2
+  },
+  {
+      "id": "16",
+      "name": "Charlotte",
+      "timespent": "9m",
+      "incorrect": 6,
+      "hints": 1
+  },
+  {
+      "id": "17",
+      "name": "Alexander",
+      "timespent": "11m",
+      "incorrect": 8,
+      "hints": 0
+  },
+  {
+      "id": "18",
+      "name": "Abigail",
+      "timespent": "5m",
+      "incorrect": 3,
+      "hints": 0
+  },
+  {
+      "id": "19",
+      "name": "Benjamin",
+      "timespent": "17m",
+      "incorrect": 12,
+      "hints": 2
+  },
+  {
+      "id": "20",
+      "name": "Ella",
+      "timespent": "4m",
+      "incorrect": 2,
+      "hints": 0
+  }
+]
+export const chapterData =[
+  {
+      "id": "1",
+      "chapter": "Chapter 1",
+      "title": "Introduction to Programming",
+      "description": "An overview of programming concepts and terminology."
+  },
+  {
+      "id": "2",
+      "chapter": "Chapter 2",
+      "title": "Data Types and Variables",
+      "description": "Exploring different types of data and how they are stored in variables."
+  },
+  {
+      "id": "3",
+      "chapter": "Chapter 3",
+      "title": "Conditional Statements",
+      "description": "Learning how to make decisions in code using if statements and switch statements."
+  },
+  {
+      "id": "4",
+      "chapter": "Chapter 4",
+      "title": "Loops and Iteration",
+      "description": "Using loops to repeat code and iterate over data structures."
+  },
+  {
+      "id": "5",
+      "chapter": "Chapter 5",
+      "title": "Functions and Modules",
+      "description": "Creating reusable code using functions and organizing code into modules."
+  },
+  {
+      "id": "6",
+      "chapter": "Chapter 6",
+      "title": "Object-Oriented Programming",
+      "description": "An introduction to object-oriented programming concepts and how to create classes and objects."
+  },
+  {
+      "id": "7",
+      "chapter": "Chapter 7",
+      "title": "File Handling",
+      "description": "Reading from and writing to files in various formats."
+  },
+  {
+      "id": "8",
+      "chapter": "Chapter 8",
+      "title": "Error Handling and Debugging",
+      "description": "Identifying and handling errors in code, and using debugging tools."
+  },
+  {
+      "id": "9",
+      "chapter": "Chapter 9",
+      "title": "Web Development",
+      "description": "An overview of web development technologies and how to create web applications."
+  },
+  {
+      "id": "10",
+      "chapter": "Chapter 10",
+      "title": "Database Management",
+      "description": "Working with databases and performing CRUD operations using SQL."
+  }
+]
+export const moduleData = [
+  {
+      "id": "1",
+      "chapterId": "1",
+      "name": "Introduction to HTML",
+      "difficulty": "Beginner"
+  },
+  {
+      "id": "2",
+      "chapterId": "1",
+      "name": "HTML Basics",
+      "difficulty": "Beginner"
+  },
+  {
+      "id": "3",
+      "chapterId": "1",
+      "name": "HTML Tags and Attributes",
+      "difficulty": "Intermediate"
+  },
+  {
+      "id": "4",
+      "chapterId": "2",
+      "name": "Introduction to CSS",
+      "difficulty": "Beginner"
+  },
+  {
+      "id": "5",
+      "chapterId": "2",
+      "name": "CSS Basics",
+      "difficulty": "Beginner"
+  },
+  {
+      "id": "6",
+      "chapterId": "2",
+      "name": "CSS Selectors",
+      "difficulty": "Intermediate"
+  },
+  {
+      "id": "7",
+      "chapterId": "2",
+      "name": "CSS Layout",
+      "difficulty": "Intermediate"
+  },
+  {
+      "id": "8",
+      "chapterId": "3",
+      "name": "Introduction to JavaScript",
+      "difficulty": "Beginner"
+  },
+  {
+      "id": "9",
+      "chapterId": "3",
+      "name": "JavaScript Basics",
+      "difficulty": "Beginner"
+  },
+  {
+      "id": "10",
+      "chapterId": "3",
+      "name": "Data Types and Variables",
+      "difficulty": "Beginner"
+  },
+  {
+      "id": "11",
+      "chapterId": "3",
+      "name": "Functions and Conditionals",
+      "difficulty": "Intermediate"
+  },
+  {
+      "id": "12",
+      "chapterId": "3",
+      "name": "Loops and Arrays",
+      "difficulty": "Intermediate"
+  },
+  {
+      "id": "13",
+      "chapterId": "3",
+      "name": "Objects and Classes",
+      "difficulty": "Advanced"
+  }
+]
 export const scheduleData = [
   {
     Id: 1,

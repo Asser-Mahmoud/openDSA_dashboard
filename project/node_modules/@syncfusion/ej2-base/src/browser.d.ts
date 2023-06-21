@@ -38,6 +38,12 @@ export declare class Browser {
      */
     private static getTouchCancelEvent;
     /**
+     * Check whether the browser on the iPad device is Safari or not
+     *
+     * @returns {boolean}
+     */
+    static isSafari(): boolean;
+    /**
      * To get the value based on provided key and regX
      *
      * @param {string} key ?

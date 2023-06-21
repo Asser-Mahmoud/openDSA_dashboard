@@ -5,6 +5,7 @@ from get_result2 import router as get_result2_router
 from student_book_data import router as student_book_data_router
 from student_progress import router as student_progress_router
 from students_enrolled_in_book import router as students_enrolled_in_book_router
+from get_books_data import router as get_books_data_router
 
 
 app = FastAPI()
@@ -20,9 +21,10 @@ app.add_middleware(
 app.include_router(students_enrolled_in_book_router)
 app.include_router(student_progress_router)
 app.include_router(student_book_data_router)
+app.include_router(get_books_data_router)
 app.include_router(get_result2_router)
 app.include_router(get_result_router)
 
 if __name__ == '__main__':
     import uvicorn
-    uvicorn.run(app, host='localhost', port=8000)
+    uvicorn.run(app, host='localhost', port=4000)

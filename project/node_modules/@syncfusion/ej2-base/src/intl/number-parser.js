@@ -1,7 +1,8 @@
 import { extend, isNullOrUndefined, isBlazor, getValue } from '../util';
 import { ParserBase as parser } from './parser-base';
 import { IntlBase as base } from './intl-base';
-var parseRegex = /^([^0-9]*)(([0-9,]*[0-9]+)(\.[0-9]+)?)([Ee][+-]?[0-9]+)?([^0-9]*)$/;
+var regExp = RegExp;
+var parseRegex = new regExp('^([^0-9]*)' + '(([0-9,]*[0-9]+)(\.[0-9]+)?)' + '([Ee][+-]?[0-9]+)?([^0-9]*)$');
 var groupRegex = /,/g;
 var keys = ['minusSign', 'infinity'];
 /**

@@ -65,8 +65,8 @@ async def estimate_item_params(string_input: str):
                 matrix[attempt.user_id][attempt.ex_id] = True
     matrix_data = np.array(matrix)
     matrix_data = matrix_data.astype(int)
-    ability = matrix_data.sum(axis=1)
-    ability = np.interp(ability, (ability.min(), ability.max()), (-20, 20))
+    ability = matrix_data.sum(axis=0)
+    ability = np.interp(ability, (ability.min(), ability.max()), (-2, 2))
     estimates = twopl_mml(matrix_data)
     discrimination = estimates['Discrimination'].tolist()
     difficulty = estimates['Difficulty'].tolist()

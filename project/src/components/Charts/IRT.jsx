@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import Plot from 'react-plotly.js';
 import { create, all } from 'mathjs';
@@ -9,101 +9,115 @@ const math = create(all)
 function IRT() {
   const [result, setResult] = useState(null);
   const [plotData, setPlotData] = useState({ icc: { x: [], y: [] }, tcc: { x: [], y: [] }});
+  const [selectedExercise, setSelectedExercise] = useState(0);
+  const [discrimination, setDiscrimination] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleClick = () => {
-    axios.get('/file1.csv') // assuming data.csv is in the public directory
-      // .then(response => {
-      //   const csvData = response.data;
-      //   const parsedData = Papa.parse(csvData, { header: true }).data;
-      //   const matrixData = parsedData.map(row => Object.values(row).map(val => parseInt(val)));
-      //   const data = { matrix: { data: matrixData } };
-      //   console.log(data);
-    const data = 'attemps_test.csv'; // Replace this with the actual file name
-        axios
-          .post(`http://localhost:8000/estimate/${data}`)
-          // .post('http://localhost:8000/estimate', data)
-          .then(response => {
-            const x = response.data.Ability ?? [];
-            const a = response.data.Discrimination ?? []; // use the first element for all items
-            const b = response.data.Difficulty ?? [];
-            console.log(x,a[0],b[0])
-            const sigmoid = (x, a, b) => {
-              const denominator = 1 + Math.exp(-a * (x - b));
-              return denominator === 0 ? NaN : 1 / denominator;
-            };
-            const y = x.map((val) => sigmoid(val, a[18], b[18]));
-            console.log(y)
-            const sortedData = x.map((value, index) => [value, y[index]])
-              .sort((a, b) => a[0] - b[0]);
-            const sortedX = sortedData.map(pair => pair[0]);
-            const sortedY = sortedData.map(pair => pair[1]);
-            // Calculate mean discrimination and difficulty for all exercises
-            const meanA = math.mean(response.data.Discrimination);
-            const meanB = math.mean(response.data.Difficulty);
+  const fetchData = () => {
+    setIsLoading(true);
+    const data = 'attemps_test.csv';
+    axios
+      .post(`http://localhost:4000/estimate/${data}`)
+      .then(response => {
+        const a = response.data.Discrimination ?? [];
+        const b = response.data.Difficulty ?? [];
+        setDiscrimination(a);
+        const selectedDiscrimination = a[selectedExercise];
+        const selectedDifficulty = b[selectedExercise];
+        const x = response.data.Ability ?? [];
+        const sigmoid = (x, a, b) => {
+          const denominator = 1 + math.exp(-a * (x - b));
+          return denominator === 0 ? NaN : 1 / denominator;
+        };
+        console.log(a,b)
+        const y = x.map(val => sigmoid(val, selectedDiscrimination, selectedDifficulty));
+        const sortedData = x.map((value, index) => [value, y[index]]).sort((a, b) => a[0] - b[0]);
+        const sortedX = sortedData.map(pair => pair[0]);
+        const sortedY = sortedData.map(pair => pair[1]);
+        const meanA = math.mean(a);
+        const meanB = math.mean(b);
+        const minAbility = math.min(...x);
+        const maxAbility = math.max(...x);
+        const range = maxAbility - minAbility;
+        const step = range / 100;
+        const abilityValues = math.range(minAbility, maxAbility, step).toArray();
+        const y2 = abilityValues.map(val => sigmoid(val, meanA, meanB));
 
-            // Calculate item response probabilities for a range of ability values
-            const minAbility = Math.min(...response.data.Ability);
-            const maxAbility = Math.max(...response.data.Ability);
-            const range = maxAbility - minAbility;
-            const step = range / 100;
-            const abilityValues = math.range(minAbility, maxAbility, step).toArray();
-            const y2 = abilityValues.map((val) => sigmoid(val, meanA, meanB));
-
-            // Plot the test characteristic curve
-            setPlotData({
-              icc: { x: sortedX, y: sortedY },
-              tcc: { x: abilityValues, y: y2 }
-            });
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      // })
-      // .catch(error => {
-      //   console.error(error);
-      // });
+        setPlotData({
+          icc: { x: sortedX, y: sortedY },
+          tcc: { x: abilityValues, y: y2 }
+        });
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
-  return (
-    <div>
-      <button onClick={handleClick}>estimate</button>
-      <Plot
-        data={[
-          {
-            x: plotData.icc.x,
-            y: plotData.icc.y,
-            type: 'scatter',
-            mode: 'lines+markers',
-            line: { color: 'black' },
-            marker: { symbol: 'circle', size: 8 }
-          }
-        ]}
-        layout={{
-          width: 800,
-          height: 600,
-          title: 'IRT model',
-          xaxis: { title: 'Latent trait' },
-          yaxis: { title: 'Item response' }
-        }}
-      />
-      <div>
-    <h2>Test Characteristic Curve</h2>
-    <Plot
-      data={[
-        {
-          x: plotData.tcc.x,
-          y: plotData.tcc.y,
-          type: "scatter",
-          mode: "lines",
-          line: { color: 'black' },
-          marker: { symbol: 'circle', size: 8 }
-        },
-      ]}
-      layout={{ width: 800, height: 600, title: "Test Characteristic Curve" }}
-    />
-  </div>
+  useEffect(() => {
+    fetchData();
+  }, [selectedExercise]);
+  const handleExerciseChange = event => {
+    const exerciseIndex = parseInt(event.target.value);
+    setSelectedExercise(exerciseIndex);
+    };
+    const listViewData = discrimination.map((_, index) => ({
+      id: index,
+      text: `Exercise ${index}`
+    }));
+ return (
+  <div>
+    <select value={selectedExercise} onChange={handleExerciseChange}style={{ marginLeft:450 , marginBottom:50}}>
+  {discrimination.map((_, index) => (
+    <option key={index} value={index}>
+      Exercise {index}
+    </option>
+  ))}
+</select>
+{isLoading && <p>Loading...</p>} 
+    <div style={{ display: 'flex' }}>
+      <div style={{ flex: 1  }}>
+        <Plot
+          data={[
+            {
+              x: plotData.icc.x,
+              y: plotData.icc.y,
+              type: 'scatter',
+              mode: 'lines+markers',
+              line: { color: 'black' },
+              marker: { symbol: 'circle', size: 8 }
+            }
+          ]}
+          layout={{
+            width: 500,
+            height: 600,
+            title: 'IRT Model - Item Response Curve',
+            xaxis: { title: 'Latent Trait' },
+            yaxis: { title: 'Item Response' }
+          }}
+        />
+      </div>
+      <div style={{ flex: 1 }}>
+      
+        <Plot
+          data={[
+            {
+              x: plotData.tcc.x,
+              y: plotData.tcc.y,
+              type: 'scatter',
+              mode: 'lines',
+              line: { color: 'black' },
+              marker: { symbol: 'circle', size: 8 }
+            },
+          ]}
+          layout={{ width: 500, height: 600, title: 'IRT Model - Test Characteristic Curve' }}
+        />
+      </div>
     </div>
-    
-  );
+
+  </div>
+);
+
 }
 
 export default IRT;
+
